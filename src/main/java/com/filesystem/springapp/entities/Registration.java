@@ -1,12 +1,48 @@
 package com.filesystem.springapp.entities;
 
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+@Entity
+@Table(name= "userReg", uniqueConstraints = @UniqueConstraint(columnNames = { "user_mailid" }))
 public class Registration {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(name= "userName")
 	private String userName;
+	
+	@Column(name= "user_phno")
 	private long user_phno;
+	
+	
 	private String user_mailid;
+	
+	
 	private String user_passwd;
-	private String confirm_pass;
+	
+	@ManyToMany(fetch =FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinTable(
+			name= "users_roles",
+			joinColumns= @JoinColumn(
+			name= "user_id", referencedColumnName ="id"),
+			inverseJoinColumns= @JoinColumn(
+					name="role_id", referencedColumnName="id"))
+	private Collection<Role> role;
 
 	
 	public Registration() {
@@ -14,13 +50,24 @@ public class Registration {
 	}
 
 
-	public Registration(String userName, long user_phno, String user_mailid, String user_passwd, String confirm_pass) {
+	public Registration(String userName, long user_phno, String user_mailid, String user_passwd,
+			Collection<Role> role) {
 		super();
 		this.userName = userName;
 		this.user_phno = user_phno;
 		this.user_mailid = user_mailid;
 		this.user_passwd = user_passwd;
-		this.confirm_pass = confirm_pass;
+		this.role = role;
+	}
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 
@@ -64,20 +111,20 @@ public class Registration {
 	}
 
 
-	public String getConfirm_pass() {
-		return confirm_pass;
+	public Collection<Role> getRole() {
+		return role;
 	}
 
 
-	public void setConfirm_pass(String confirm_pass) {
-		this.confirm_pass = confirm_pass;
+	public void setRole(Collection<Role> role) {
+		this.role = role;
 	}
 
 
 	@Override
 	public String toString() {
-		return "Registration [userName=" + userName + ", user_phno=" + user_phno + ", user_mailid=" + user_mailid
-				+ ", user_passwd=" + user_passwd + ", confirm_pass=" + confirm_pass + "]";
+		return "Registration [id=" + id + ", userName=" + userName + ", user_phno=" + user_phno + ", user_mailid="
+				+ user_mailid + ", user_passwd=" + user_passwd + ", role=" + role + "]";
 	}
 
 
@@ -85,7 +132,8 @@ public class Registration {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((confirm_pass == null) ? 0 : confirm_pass.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
 		result = prime * result + ((user_mailid == null) ? 0 : user_mailid.hashCode());
 		result = prime * result + ((user_passwd == null) ? 0 : user_passwd.hashCode());
@@ -103,10 +151,15 @@ public class Registration {
 		if (getClass() != obj.getClass())
 			return false;
 		Registration other = (Registration) obj;
-		if (confirm_pass == null) {
-			if (other.confirm_pass != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!confirm_pass.equals(other.confirm_pass))
+		} else if (!id.equals(other.id))
+			return false;
+		if (role == null) {
+			if (other.role != null)
+				return false;
+		} else if (!role.equals(other.role))
 			return false;
 		if (userName == null) {
 			if (other.userName != null)
@@ -127,6 +180,6 @@ public class Registration {
 			return false;
 		return true;
 	}
-	
 
+	
 }
