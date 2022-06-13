@@ -10,9 +10,9 @@ import com.filesystem.springapp.entities.Role;
 import com.filesystem.springapp.repositories.UserRepository;
 import com.filesystem.springapp.web.dto.UserRegistrationDto;
 
+
 @Service
 public class UserServiceImpl implements UserService {
-
 
 	private UserRepository userRepository;
 	
@@ -23,10 +23,16 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Registration save(UserRegistrationDto registrationDto) {
-		Registration user=new Registration(registrationDto.getFirstName(),
-				registrationDto.getLastName(),registrationDto.getEmailId(),
-				registrationDto.getPassword(), Arrays.asList(new Role("ROLE_USER")));
-	
-			return userRepository.save(user);
+		Registration registration=new Registration(registrationDto.getUserName(),
+				registrationDto.getUser_phno(), registrationDto.getUser_mailid(),
+				registrationDto.getUser_passwd(),Arrays.asList(new Role("UserRole")));
+		
+		return userRepository.save(registration);
 	}
+
+	
+
+	
+
+	
 }

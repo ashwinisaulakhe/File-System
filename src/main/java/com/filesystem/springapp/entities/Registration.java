@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name= "userReg", uniqueConstraints = @UniqueConstraint(columnNames = { "user_mailid" }))
+@Table(name= "userReg", uniqueConstraints = @UniqueConstraint(columnNames = { "userMailid" }))
 public class Registration {
 	
 	@Id
@@ -26,14 +26,14 @@ public class Registration {
 	@Column(name= "userName")
 	private String userName;
 	
-	@Column(name= "user_phno")
-	private long user_phno;
+	@Column(name= "userphno")
+	private long userPhno;
 	
 	
-	private String user_mailid;
+	private String userMailid;
 	
 	
-	private String user_passwd;
+	private String userPasswd;
 	
 	@ManyToMany(fetch =FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinTable(
@@ -54,9 +54,9 @@ public class Registration {
 			Collection<Role> role) {
 		super();
 		this.userName = userName;
-		this.user_phno = user_phno;
-		this.user_mailid = user_mailid;
-		this.user_passwd = user_passwd;
+		this.userPhno = user_phno;
+		this.userMailid = user_mailid;
+		this.userPasswd = user_passwd;
 		this.role = role;
 	}
 
@@ -82,32 +82,32 @@ public class Registration {
 
 
 	public long getUser_phno() {
-		return user_phno;
+		return userPhno;
 	}
 
 
 	public void setUser_phno(long user_phno) {
-		this.user_phno = user_phno;
+		this.userPhno = user_phno;
 	}
 
 
 	public String getUser_mailid() {
-		return user_mailid;
+		return userMailid;
 	}
 
 
 	public void setUser_mailid(String user_mailid) {
-		this.user_mailid = user_mailid;
+		this.userMailid = user_mailid;
 	}
 
 
 	public String getUser_passwd() {
-		return user_passwd;
+		return userPasswd;
 	}
 
 
 	public void setUser_passwd(String user_passwd) {
-		this.user_passwd = user_passwd;
+		this.userPasswd = user_passwd;
 	}
 
 
@@ -123,8 +123,8 @@ public class Registration {
 
 	@Override
 	public String toString() {
-		return "Registration [id=" + id + ", userName=" + userName + ", user_phno=" + user_phno + ", user_mailid="
-				+ user_mailid + ", user_passwd=" + user_passwd + ", role=" + role + "]";
+		return "Registration [id=" + id + ", userName=" + userName + ", user_phno=" + userPhno + ", user_mailid="
+				+ userMailid + ", user_passwd=" + userPasswd + ", role=" + role + "]";
 	}
 
 
@@ -135,9 +135,9 @@ public class Registration {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
-		result = prime * result + ((user_mailid == null) ? 0 : user_mailid.hashCode());
-		result = prime * result + ((user_passwd == null) ? 0 : user_passwd.hashCode());
-		result = prime * result + (int) (user_phno ^ (user_phno >>> 32));
+		result = prime * result + ((userMailid == null) ? 0 : userMailid.hashCode());
+		result = prime * result + ((userPasswd == null) ? 0 : userPasswd.hashCode());
+		result = prime * result + (int) (userPhno ^ (userPhno >>> 32));
 		return result;
 	}
 
@@ -166,17 +166,17 @@ public class Registration {
 				return false;
 		} else if (!userName.equals(other.userName))
 			return false;
-		if (user_mailid == null) {
-			if (other.user_mailid != null)
+		if (userMailid == null) {
+			if (other.userMailid != null)
 				return false;
-		} else if (!user_mailid.equals(other.user_mailid))
+		} else if (!userMailid.equals(other.userMailid))
 			return false;
-		if (user_passwd == null) {
-			if (other.user_passwd != null)
+		if (userPasswd == null) {
+			if (other.userPasswd != null)
 				return false;
-		} else if (!user_passwd.equals(other.user_passwd))
+		} else if (!userPasswd.equals(other.userPasswd))
 			return false;
-		if (user_phno != other.user_phno)
+		if (userPhno != other.userPhno)
 			return false;
 		return true;
 	}

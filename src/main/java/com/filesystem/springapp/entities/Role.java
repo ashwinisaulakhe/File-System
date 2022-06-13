@@ -16,14 +16,19 @@ public class Role {
 	
 	private String name;
 	
+	
+	
 	public Role() {
 		super();
 	}
-	public Role(Long id, String name) {
+	
+	
+	public Role(String name) {
 		super();
-		this.id = id;
 		this.name = name;
 	}
+
+
 	public Long getId() {
 		return id;
 	}
