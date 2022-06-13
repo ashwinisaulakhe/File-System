@@ -3,6 +3,7 @@ package com.filesystem.springapp.services;
 
 import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.filesystem.springapp.entities.Registration;
@@ -14,6 +15,7 @@ import com.filesystem.springapp.web.dto.UserRegistrationDto;
 @Service
 public class UserServiceImpl implements UserService {
 
+	@Autowired
 	private UserRepository userRepository;
 	
 	public UserServiceImpl(UserRepository userRepository) {
