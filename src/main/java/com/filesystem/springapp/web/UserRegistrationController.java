@@ -18,13 +18,13 @@ public class UserRegistrationController {
 		this.userService = userService;
 	}
 
-	//@GetMapping("/registration")
+	@GetMapping("/registration")
 	public String showRegistrationForm()
 	{
 		return "registration";
 	}
 	
-	//@PostMapping("/registration")
+	@PostMapping("/registration")
 	public String registerUserAccount(@ModelAttribute("registration") UserRegistrationDto registrationDto)
 	{
 		userService.save(registrationDto);
