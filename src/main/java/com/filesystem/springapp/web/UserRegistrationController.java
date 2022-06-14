@@ -1,7 +1,7 @@
-package com.filesystem.springapp.web;
-
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.filesystem.springapp.services.UserService;
@@ -17,12 +17,14 @@ public class UserRegistrationController {
 		super();
 		this.userService = userService;
 	}
-	
+
+	//@GetMapping("/registration")
 	public String showRegistrationForm()
 	{
 		return "registration";
 	}
 	
+	//@PostMapping("/registration")
 	public String registerUserAccount(@ModelAttribute("registration") UserRegistrationDto registrationDto)
 	{
 		userService.save(registrationDto);
