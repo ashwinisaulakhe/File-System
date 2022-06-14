@@ -1,3 +1,4 @@
+package com.filesystem.springapp.web;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,6 +12,7 @@ import com.filesystem.springapp.web.dto.UserRegistrationDto;
 @RequestMapping("/registration")
 public class UserRegistrationController {
 
+	
 	private UserService userService;
 
 	public UserRegistrationController(UserService userService) {
@@ -18,13 +20,13 @@ public class UserRegistrationController {
 		this.userService = userService;
 	}
 
-	@GetMapping("/registration")
+	@GetMapping
 	public String showRegistrationForm()
 	{
 		return "registration";
 	}
 	
-	@PostMapping("/registration")
+	@PostMapping
 	public String registerUserAccount(@ModelAttribute("registration") UserRegistrationDto registrationDto)
 	{
 		userService.save(registrationDto);
