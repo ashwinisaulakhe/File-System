@@ -16,23 +16,23 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name= "userReg", uniqueConstraints = @UniqueConstraint(columnNames = { "userMailid" }))
+@Table(name= "user_reg", uniqueConstraints = @UniqueConstraint(columnNames = { "user_mailid" }))
 public class Registration {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name= "userName")
+	@Column(name= "user_name")
 	private String userName;
 	
 	@Column(name= "userphno")
-	private long userPhno;
+	private String userPhno;
 	
-	
+	@Column(name="user_mailid")
 	private String userMailid;
 	
-	
+	@Column(name="user_passwd")
 	private String userPasswd;
 	
 	@ManyToMany(fetch =FetchType.EAGER, cascade=CascadeType.ALL)
@@ -50,7 +50,7 @@ public class Registration {
 	}
 
 
-	public Registration(String userName, long user_phno, String user_mailid, String user_passwd,
+	public Registration(String userName, String user_phno, String user_mailid, String user_passwd,
 			Collection<Role> role) {
 		super();
 		this.userName = userName;
@@ -81,12 +81,12 @@ public class Registration {
 	}
 
 
-	public long getUser_phno() {
+	public String getUser_phno() {
 		return userPhno;
 	}
 
 
-	public void setUser_phno(long user_phno) {
+	public void setUser_phno(String user_phno) {
 		this.userPhno = user_phno;
 	}
 
@@ -125,20 +125,6 @@ public class Registration {
 	public String toString() {
 		return "Registration [id=" + id + ", userName=" + userName + ", user_phno=" + userPhno + ", user_mailid="
 				+ userMailid + ", user_passwd=" + userPasswd + ", role=" + role + "]";
-	}
-
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
-		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
-		result = prime * result + ((userMailid == null) ? 0 : userMailid.hashCode());
-		result = prime * result + ((userPasswd == null) ? 0 : userPasswd.hashCode());
-		result = prime * result + (int) (userPhno ^ (userPhno >>> 32));
-		return result;
 	}
 
 
