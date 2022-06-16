@@ -42,18 +42,18 @@ public class UserRegistrationController {
 
 	    @PostMapping
 	    public ResponseEntity createRegistration(@RequestBody Registration registration) throws URISyntaxException {
-	    	Registration savedClient = userRepository.save(registration);
-	        return ResponseEntity.created(new URI("/registration/" + savedClient.getId())).body(savedClient);
+	    	Registration savedRegistration = userRepository.save(registration);
+	        return ResponseEntity.created(new URI("/registration/" + savedRegistration.getId())).body(savedRegistration);
 	    }
 
 	    @PutMapping("/{id}")
-	    public ResponseEntity updateRegistration(@PathVariable Long id, @RequestBody Registration client) {
+	    public ResponseEntity updateRegistration(@PathVariable Long id, @RequestBody Registration registration) {
 	    	Registration currentRegistration = userRepository.findById(id).orElseThrow(RuntimeException::new);
 	    	currentRegistration.setUserName(currentRegistration.getUserName());
 	    	currentRegistration.setUser_mailid(currentRegistration.getUser_mailid());
 	    	currentRegistration.setUser_passwd(currentRegistration.getUser_passwd());
 	    	currentRegistration.setUser_phno(currentRegistration.getUser_phno());
-	    	currentRegistration =userRepository.save(client);
+	    	currentRegistration =userRepository.save(registration);
 
 	        return ResponseEntity.ok(currentRegistration);
 	    }

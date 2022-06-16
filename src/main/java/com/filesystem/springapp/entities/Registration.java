@@ -23,16 +23,16 @@ public class Registration {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name= "user_name")
+	@Column(name = "user_name")
 	private String userName;
 	
-	@Column(name= "userphno")
+	@Column(name = "user_phno")
 	private String userPhno;
 	
-	@Column(name="user_mailid")
+	@Column(name ="user_mailid")
 	private String userMailid;
 	
-	@Column(name="user_passwd")
+	@Column(name= "user_passwd")
 	private String userPasswd;
 	
 	@ManyToMany(fetch =FetchType.EAGER, cascade=CascadeType.ALL)
