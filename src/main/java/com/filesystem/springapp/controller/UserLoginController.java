@@ -1,5 +1,6 @@
 package com.filesystem.springapp.controller;
 
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.filesystem.springapp.entities.Registration;
 import com.filesystem.springapp.entities.UserLogin;
 import com.filesystem.springapp.repositories.UserLoginRepository;
 
@@ -30,6 +30,21 @@ public class UserLoginController {
 		this.loginRepository = loginRepository;
 	}
 	
+	@GetMapping("/index")
+	public String getHome() { 
+	return "/index";
+    }
+	
+	@GetMapping("/login")
+	public String login() { 
+	return "/login";
+    }
+	
+	@GetMapping("/logout")
+	public String logout() { 
+	return "/logout";
+    }
+	  
 	@GetMapping
 	public List<UserLogin> getUserLogin() {
         return loginRepository.findAll();

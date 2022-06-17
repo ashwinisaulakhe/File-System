@@ -7,6 +7,6 @@ import com.filesystem.springapp.entities.UserLogin;
 @Repository
 public interface UserLoginRepository extends JpaRepository<UserLogin, Long> {
 
-	
+	UserLogin findByUsername(String username);
 
 }

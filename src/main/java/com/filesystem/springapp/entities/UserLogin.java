@@ -33,7 +33,7 @@ public class UserLogin {
 
 	public UserLogin(String username, String password) {
 		super();
-		this.id=id;
+		
 		this.username = username;
 		this.password = password;
 	}
