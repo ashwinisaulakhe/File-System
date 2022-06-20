@@ -1,41 +1,40 @@
 package com.filesystem.springapp.entities;
 
+import java.io.Serializable;
 import java.util.Collection;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name= "user_reg", uniqueConstraints = @UniqueConstraint(columnNames = { "user_mailid" }))
-public class UserRegistration {
+public class UserRegistration implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "user_name")
-	private String userName;
+    @NotEmpty(message = "Username can not be empty")
+    private String userName;
 	
-	@Column(name = "user_phno")
+    @NotEmpty(message = "Phone number can not be empty")
 	private String userPhno;
 	
-	@Column(name ="user_mailid")
+    @NotEmpty(message = "Email can not be empty")
+    @Email(message = "Please provide a valid email id")
 	private String userMailid;
 	
-	@Column(name= "user_passwd")
+    @NotEmpty(message = "Password can not be empty")
 	private String userPasswd;
 	
-	@ManyToMany(fetch =FetchType.EAGER, cascade=CascadeType.ALL)
+    @NotEmpty(message = "Password can not be empty")
+	private String confirmPass;
+	
 	@JoinTable(
 			name= "users_roles",
 			joinColumns= @JoinColumn(
@@ -50,7 +49,7 @@ public class UserRegistration {
 	}
 
 
-	public UserRegistration(Long id, String userName, String userPhno, String userMailid, String userPasswd,
+	public UserRegistration(Long id, String userName, String userPhno, String userMailid, String userPasswd, String confirmPass,
 			Collection<Role> role) {
 		super();
 		this.id = id;
@@ -58,8 +57,10 @@ public class UserRegistration {
 		this.userPhno = userPhno;
 		this.userMailid = userMailid;
 		this.userPasswd = userPasswd;
+		this.confirmPass= confirmPass;
 		this.role = role;
 	}
+	
 
 	public Long getId() {
 		return id;
@@ -109,6 +110,15 @@ public class UserRegistration {
 	public void setUser_passwd(String user_passwd) {
 		this.userPasswd = user_passwd;
 	}
+	
+	public String getConfirmPass() {
+		return confirmPass;
+	}
+
+
+	public void setConfirmPass(String confirmPass) {
+		this.confirmPass = confirmPass;
+	}
 
 
 	public Collection<Role> getRole() {
@@ -124,7 +134,7 @@ public class UserRegistration {
 	@Override
 	public String toString() {
 		return "Registration [id=" + id + ", userName=" + userName + ", user_phno=" + userPhno + ", user_mailid="
-				+ userMailid + ", user_passwd=" + userPasswd + ", role=" + role + "]";
+				+ userMailid + ", user_passwd=" + userPasswd + " + "+" confirm_pass= "+" role=" + role + "]";
 	}
 
 
@@ -166,6 +176,7 @@ public class UserRegistration {
 			return false;
 		return true;
 	}
+
 
 	
 }
