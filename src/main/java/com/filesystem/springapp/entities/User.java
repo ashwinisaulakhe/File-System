@@ -10,7 +10,7 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name= "userLogin", uniqueConstraints = @UniqueConstraint(columnNames = { "usermailid" }))
-public class UserLogin {
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,12 +26,12 @@ public class UserLogin {
 	private String password;
 	
 	
-	public UserLogin() {
+	public User() {
 		super();
 	}
 
 
-	public UserLogin(String username, String password) {
+	public User(String username, String password) {
 		super();
 		
 		this.username = username;

@@ -11,7 +11,9 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.filesystem.springapp.services.UserLoginService;
+import com.filesystem.springapp.services.UserService;
+
+
 
 public class ApplicationSecurityConfigure extends WebSecurityConfigurerAdapter {
 
@@ -41,7 +43,7 @@ public class ApplicationSecurityConfigure extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Autowired
-	public UserLoginService userLoginService;
+	public UserService userLoginService;
 	
 	@Bean
 	public AuthenticationProvider authenticationProvider() {

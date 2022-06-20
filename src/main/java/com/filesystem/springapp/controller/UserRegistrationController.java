@@ -14,53 +14,53 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.filesystem.springapp.entities.Registration;
-import com.filesystem.springapp.repositories.UserRepository;
+import com.filesystem.springapp.entities.UserRegistration;
+import com.filesystem.springapp.repositories.UserRegRepository;
+
 
 @RestController
 @RequestMapping("/registration")
 public class UserRegistrationController {
 
-	 private final UserRepository userRepository;
+	 private final UserRegRepository userRegRepository;
 
-	    
 
-	    public UserRegistrationController(UserRepository userRepository) {
+	    public UserRegistrationController(UserRegRepository userRegRepository) {
 		super();
-		this.userRepository = userRepository;
+		this.userRegRepository = userRegRepository;
 	}
 
 		@GetMapping
-		public List<Registration> getRegistration() {
-	        return userRepository.findAll();
+		public List<UserRegistration> getRegistration() {
+	        return userRegRepository.findAll();
 	    }
 
 	    @GetMapping("/{id}")
-	    public Registration getRegistration(@PathVariable Long id) {
-	        return userRepository.findById(id).orElseThrow(RuntimeException::new);
+	    public UserRegistration getRegistration(@PathVariable Long id) {
+	        return userRegRepository.findById(id).orElseThrow(RuntimeException::new);
 	    }
 
 	    @PostMapping
-	    public ResponseEntity createRegistration(@RequestBody Registration registration) throws URISyntaxException {
-	    	Registration savedRegistration = userRepository.save(registration);
+	    public ResponseEntity createRegistration(@RequestBody UserRegistration registration) throws URISyntaxException {
+	    	UserRegistration savedRegistration = userRegRepository.save(registration);
 	        return ResponseEntity.created(new URI("/registration/" + savedRegistration.getId())).body(savedRegistration);
 	    }
 
 	    @PutMapping("/{id}")
-	    public ResponseEntity updateRegistration(@PathVariable Long id, @RequestBody Registration registration) {
-	    	Registration currentRegistration = userRepository.findById(id).orElseThrow(RuntimeException::new);
+	    public ResponseEntity updateRegistration(@PathVariable Long id, @RequestBody UserRegistration registration) {
+	    	UserRegistration currentRegistration = userRegRepository.findById(id).orElseThrow(RuntimeException::new);
 	    	currentRegistration.setUserName(currentRegistration.getUserName());
 	    	currentRegistration.setUser_mailid(currentRegistration.getUser_mailid());
 	    	currentRegistration.setUser_passwd(currentRegistration.getUser_passwd());
 	    	currentRegistration.setUser_phno(currentRegistration.getUser_phno());
-	    	currentRegistration =userRepository.save(registration);
+	    	currentRegistration =userRegRepository.save(registration);
 
 	        return ResponseEntity.ok(currentRegistration);
 	    }
 
 	    @DeleteMapping("/{id}")
 	    public ResponseEntity deleteRegistration(@PathVariable Long id) {
-	    	userRepository.deleteById(id);
+	    	userRegRepository.deleteById(id);
 	        return ResponseEntity.ok().build();
 	    }
 	}

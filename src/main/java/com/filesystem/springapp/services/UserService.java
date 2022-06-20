@@ -4,19 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.filesystem.springapp.entities.UserLogin;
+import com.filesystem.springapp.entities.User;
 import com.filesystem.springapp.entities.UserPrincipal;
-import com.filesystem.springapp.repositories.UserLoginRepository;
-import com.filesystem.springapp.serviceImpl.UserLoginServiceImpl;
+import com.filesystem.springapp.repositories.UserRepository;
+import com.filesystem.springapp.serviceImpl.UserServiceImpl;
 
-public class UserLoginService implements UserLoginServiceImpl {
+
+public class UserService implements UserServiceImpl {
 
 	@Autowired
-	private UserLoginRepository userLoginRepository;
+	private UserRepository loginRepository;
 	
 	@Override
 	public UserDetails loadUserLoginByUsername (String username) throws UsernameNotFoundException {
-		UserLogin user=userLoginRepository.findByUsername(username);
+		User user=loginRepository.findByUsername(username);
 		
 		if(user == null) {
 			throw new UsernameNotFoundException("User not found");

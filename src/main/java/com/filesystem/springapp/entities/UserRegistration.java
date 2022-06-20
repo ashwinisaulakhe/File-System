@@ -17,7 +17,7 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name= "user_reg", uniqueConstraints = @UniqueConstraint(columnNames = { "user_mailid" }))
-public class Registration {
+public class UserRegistration {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,21 +45,21 @@ public class Registration {
 	private Collection<Role> role;
 
 	
-	public Registration() {
+	public UserRegistration() {
 		super();
 	}
 
 
-	public Registration(String userName, String user_phno, String user_mailid, String user_passwd,
+	public UserRegistration(Long id, String userName, String userPhno, String userMailid, String userPasswd,
 			Collection<Role> role) {
 		super();
+		this.id = id;
 		this.userName = userName;
-		this.userPhno = user_phno;
-		this.userMailid = user_mailid;
-		this.userPasswd = user_passwd;
+		this.userPhno = userPhno;
+		this.userMailid = userMailid;
+		this.userPasswd = userPasswd;
 		this.role = role;
 	}
-
 
 	public Long getId() {
 		return id;
@@ -136,7 +136,7 @@ public class Registration {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Registration other = (Registration) obj;
+		UserRegistration other = (UserRegistration) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

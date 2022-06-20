@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.filesystem.springapp.entities.UserLogin;
-import com.filesystem.springapp.repositories.UserLoginRepository;
+import com.filesystem.springapp.entities.User;
+import com.filesystem.springapp.repositories.UserRepository;
 
 
 @Controller
 @RequestMapping("/login")
-public class UserLoginController {
+public class UserController {
 
-	private UserLoginRepository loginRepository;
+	private UserRepository loginRepository;
 
-	public UserLoginController(UserLoginRepository loginRepository) {
+	public UserController(UserRepository loginRepository) {
 		super();
 		this.loginRepository = loginRepository;
 	}
@@ -46,23 +46,23 @@ public class UserLoginController {
     }
 	  
 	@GetMapping
-	public List<UserLogin> getUserLogin() {
+	public List<User> getUserLogin() {
         return loginRepository.findAll();
     }
 	
 	  @GetMapping("/{id}")
-	    public UserLogin getUserLogin(@PathVariable Long id) {
+	    public User getUserLogin(@PathVariable Long id) {
 	        return loginRepository.findById(id).orElseThrow(RuntimeException::new);
 	    }
 	  
 	  @PostMapping
-	    public ResponseEntity createUserLogin(@RequestBody UserLogin userlogin) throws URISyntaxException {
-		  UserLogin savedUserLogin = loginRepository.save(userlogin);
+	    public ResponseEntity createUserLogin(@RequestBody User user) throws URISyntaxException {
+		  User savedUserLogin = loginRepository.save(user);
 	        return ResponseEntity.created(new URI("/login/" + savedUserLogin.getId())).body(savedUserLogin);
 	    }
 	  @PutMapping("/{id}")
-	    public ResponseEntity updateUserLogin(@PathVariable Long id, @RequestBody UserLogin userLogin) {
-	    	UserLogin currentUserLogin = loginRepository.findById(id).orElseThrow(RuntimeException::new);
+	    public ResponseEntity updateUserLogin(@PathVariable Long id, @RequestBody User userLogin) {
+	    	User currentUserLogin = loginRepository.findById(id).orElseThrow(RuntimeException::new);
 	    	currentUserLogin.setUsername(currentUserLogin.getUsername());
 	    	currentUserLogin.setUserMailid(currentUserLogin.getUserMailid());
 	    	currentUserLogin.setPassword(currentUserLogin.getPassword());
