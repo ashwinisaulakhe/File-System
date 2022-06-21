@@ -1,71 +1,51 @@
 package com.filesystem.springapp.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
+import com.filesystem.springapp.dto.UserData;
 import com.filesystem.springapp.entities.UserRegistration;
-import com.filesystem.springapp.repositories.UserRegRepository;
-import com.filesystem.springapp.services.UserRegService;
+import com.filesystem.springapp.serviceImpl.UserAlreadyExistsException;
+import com.filesystem.springapp.serviceImpl.UserRegService;
 
-@RestController
-@RequestMapping("/registration")
+@Controller
 public class UserRegistrationController {
 
+	private static final String REDIRECT = null;
+	private Model model;
+
 	@Autowired
-	 private UserRegService userRegService;
+	private UserRegService userRegService;
 	
-	 private final UserRegRepository userRegRepository;
-
-	public UserRegistrationController(UserRegRepository userRegRepository) {
-		super();
-		this.userRegRepository = userRegRepository;
+	
+	@GetMapping("/register")
+	public String register(final Model model) {
+		model.addAttribute("userData", new UserData());
+		return "home/register";
 	}
-
-	    @GetMapping("/registration")
-	    public String register(final Model model){
-	        model.addAttribute("userRegistration", new UserRegistration());
-	        return "account/register";
-	    }
-
-	  //  @PutMapping("/{id}")
-	   // public ResponseEntity updateRegistration(@PathVariable Long id, @RequestBody UserRegistration registration) {
-	   // 	UserRegistration currentRegistration = userRegRepository.findById(id).orElseThrow(RuntimeException::new);
-	   // 	currentRegistration.setUserName(currentRegistration.getUserName());
-	   // 	currentRegistration.setUser_mailid(currentRegistration.getUser_mailid());
-	   // 	currentRegistration.setUser_passwd(currentRegistration.getUser_passwd());
-	   // 	currentRegistration.setUser_phno(currentRegistration.getUser_phno());
-	   // 	currentRegistration.setConfirmPass(currentRegistration.getConfirmPass());
-	   // 	currentRegistration =userRegRepository.save(registration);
-
-	    //    return ResponseEntity.ok(currentRegistration);
-	    // }
-	    
-	    @PostMapping("/registration")
-	    public String userRegistration(final @Validated  UserRegistration userRegistration, final BindingResult bindingResult, final Model model, String REDIRECT){
-	        if(bindingResult.hasErrors()){
-	            model.addAttribute("registrationForm", userRegistration);
-	            return "account/register";
-	        }
-	        
-	        try {
-	            
-	        	userRegService.register(userRegistration);
-	         }
-	        catch (UserAlreadyExistException e){
-	            bindingResult.rejectValue("email", "userRegistration.email","An account already exists for this email.");
-	            model.addAttribute("registrationForm", userRegistration);
-	            return "account/register";
-	        }
-	     
-		
-			return REDIRECT+"/starter";
-	    }
-
-	   
+	
+	@PostMapping
+	public String userRegistrations(final @Valid UserData userData,final BindingResult bindingResult,final Model model)
+	{
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("UerData",userData);
+			return "home/register";
+		}
+		try
+		{
+			userRegService.register(userData);
+		}
+		catch(UserAlreadyExistsException e){
+			bindingResult.rejectValue("userMailId", "userData.userMailId", "An account already Exist for this emailId");
+			model.addAttribute("registrationForm",userData);
+			return "home/register";
+		}
+		return REDIRECT + "home/register";
 	}
+}

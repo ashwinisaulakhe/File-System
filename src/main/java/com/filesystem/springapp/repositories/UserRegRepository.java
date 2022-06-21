@@ -8,7 +8,7 @@ import com.filesystem.springapp.entities.UserRegistration;
 @Repository
 public interface UserRegRepository extends JpaRepository<UserRegistration, Long>{
 
-	Object findByEmail(String userMailid);
+	UserRegistration findByEmail(String userMailId);
 
 	
 

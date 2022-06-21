@@ -1,0 +1,39 @@
+<html>
+<body>
+<h1 th:text="#{label.form.title}">form</h1>
+<p class="login-box-message">Register a new Account</p>
+<form action="/register" th:object="${userRegistration}" method="POST" enctype="utf8">
+    <div>
+        <label th:text="#{label.user.userName}">first</label>
+        <input th:field="*{userName}"/>
+        <p th:each="error: ${#fields.errors('userName')}" 
+          th:text="${error}">Validation error</p>
+    </div>
+    <div>
+        <label th:text="#{label.user.userPhno}">last</label>
+        <input th:field="*{userPhno}"/>
+        <p th:each="error : ${#fields.errors('userPhno')}" 
+          th:text="${error}">Validation error</p>
+    </div>
+    <div>
+        <label th:text="#{label.user.userMailid}">email</label>
+        <input type="email" th:field="*{userMailid}"/>
+        <p th:each="error : ${#fields.errors('userMailid')}" 
+          th:text="${error}">Validation error</p>
+    </div>
+    <div>
+        <label th:text="#{label.user.userPasswd}">password</label>
+        <input type="password" th:field="*{userPasswd}"/>
+        <p th:each="error : ${#fields.errors('userPasswd')}" 
+          th:text="${error}">Validation error</p>
+    </div>
+    <div>
+        <label th:text="#{label.user.confirmPass}">confirm</label>
+        <input type="password" th:field="*{matchingPassword}"/>
+    </div>
+    <button type="submit" th:text="#{label.form.submit}">submit</button>
+</form>
+
+<a th:href="@{/login.html}" th:text="#{label.form.loginLink}">login</a>
+</body>
+</html>
