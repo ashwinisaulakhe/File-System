@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name= "user_reg",uniqueConstraints = @UniqueConstraint(columnNames = { "usermMailid" }))
+@Table(name= "user_reg",uniqueConstraints = @UniqueConstraint(columnNames = { "userMailid" }))
 public class UserRegistration implements Serializable{
 	
 	@Id

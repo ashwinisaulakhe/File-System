@@ -28,13 +28,14 @@ public class DefaultUserRegService implements UserRegService{
 		}
 		UserRegistration userRegistration =new UserRegistration();
 		BeanUtils.copyProperties(userData, userRegistration);
+		encodePassword(userData,userRegistration);
 		userRegRepository.save(userRegistration);
 		
 	}
 
 	@Override
-	public boolean CheckIfUserExist(String UserMailId) {
-		return userRegRepository.findByEmail(UserMailId)!=null ? true : false;
+	public boolean CheckIfUserExist(String userMailid) {
+		return userRegRepository.findByEmail(userMailid)!=null ? true : false;
 	}
 	
 	private void encodePassword(UserData source,UserRegistration target)

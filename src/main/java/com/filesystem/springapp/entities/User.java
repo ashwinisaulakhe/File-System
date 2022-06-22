@@ -87,6 +87,12 @@ public class User {
 	}
 
 
+	public String getRole() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	
 
 

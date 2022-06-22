@@ -8,8 +8,8 @@ import com.filesystem.springapp.entities.UserRegistration;
 @Repository
 public interface UserRegRepository extends JpaRepository<UserRegistration, Long>{
 
-	UserRegistration findByEmail(String userMailId);
-
 	
+//	<S> S save(UserRegistration userRegistration);
 
+	UserRegistration findByEmail(String userMailid); 
 }

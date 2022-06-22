@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.filesystem.springapp.dto.UserData;
 import com.filesystem.springapp.entities.UserRegistration;
@@ -15,6 +16,7 @@ import com.filesystem.springapp.serviceImpl.UserAlreadyExistsException;
 import com.filesystem.springapp.serviceImpl.UserRegService;
 
 @Controller
+@RequestMapping("/registration")
 public class UserRegistrationController {
 
 	private static final String REDIRECT = null;
@@ -30,7 +32,7 @@ public class UserRegistrationController {
 		return "home/register";
 	}
 	
-	@PostMapping
+	@PostMapping("/register")
 	public String userRegistrations(final @Valid UserData userData,final BindingResult bindingResult,final Model model)
 	{
 		if(bindingResult.hasErrors()) {
@@ -42,7 +44,7 @@ public class UserRegistrationController {
 			userRegService.register(userData);
 		}
 		catch(UserAlreadyExistsException e){
-			bindingResult.rejectValue("userMailId", "userData.userMailId", "An account already Exist for this emailId");
+			bindingResult.rejectValue("userMailid", "userData.userMailid", "An account already Exist for this emailId");
 			model.addAttribute("registrationForm",userData);
 			return "home/register";
 		}

@@ -2,14 +2,11 @@ package com.filesystem.springapp.dto;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.mapstruct.Mapper;
 
-@Table(name= "user_reg",uniqueConstraints = @UniqueConstraint(columnNames = { "usermMailid" }))
+@Mapper
 public class UserData implements Serializable {
 
 	
