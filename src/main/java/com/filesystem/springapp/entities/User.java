@@ -1,5 +1,7 @@
 package com.filesystem.springapp.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +12,7 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name= "userLogin", uniqueConstraints = @UniqueConstraint(columnNames = { "usermailid" }))
-public class User {
+public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -100,3 +102,7 @@ public class User {
 	
 	
 }
+
+
+	
+
