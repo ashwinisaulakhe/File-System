@@ -1,5 +1,7 @@
 package com.filesystem.springapp.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,9 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 @Entity
+@Data
 @Table(name="user")
-public class UserEntity {
+public class UserEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,22 +25,14 @@ public class UserEntity {
 	@Column(unique=true)
 	private String email;
 	private String phoneNumber;
+	@Column(length=10)
 	private String password;
-	private String confirmPassword;
+	
+	private String roles;
+	private boolean enabled = false; 
 	
 	public UserEntity() {
 		super();
-	}
-
-	public UserEntity(String firstName, String lastName, String email, String phoneNumber, String password,
-			String confirmPassword) {
-		super();
-		this.firstName = firstName;
-		LastName = lastName;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.password = password;
-		this.confirmPassword = confirmPassword;
 	}
 
 	public Long getId() {
@@ -86,20 +83,27 @@ public class UserEntity {
 		this.password = password;
 	}
 
-	public String getConfirmPassword() {
-		return confirmPassword;
+	public String getRoles() {
+		return roles;
 	}
 
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
+	public void setRoles(String roles) {
+		this.roles = roles;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	@Override
 	public String toString() {
 		return "UserEntity [id=" + id + ", firstName=" + firstName + ", LastName=" + LastName + ", email=" + email
-				+ ", phoneNumber=" + phoneNumber + ", password=" + password + ", confirmPassword=" + confirmPassword
-				+ "]";
+				+ ", phoneNumber=" + phoneNumber + ", password=" + password + ", roles=" + roles + ", enabled="
+				+ enabled + "]";
 	}
-	
-	
+
 }

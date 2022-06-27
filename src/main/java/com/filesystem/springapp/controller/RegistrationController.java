@@ -1,48 +1,46 @@
 package com.filesystem.springapp.controller;
 
-import javax.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.filesystem.springapp.dao.UserData;
-import com.filesystem.springapp.serviceImpl.UserEntityService;
+import com.filesystem.springapp.dao.UserRegModel;
+import com.filesystem.springapp.entities.UserEntity;
+import com.filesystem.springapp.event.RegistrationCompleteEvent;
+import com.filesystem.springapp.services.UserEntityService;
 
 @RestController
 @RequestMapping("/register")
 public class RegistrationController {
-
-
-	@Autowired
-    private UserEntityService userEntityService;
 	
+	@Autowired
+	private UserEntityService userEntityService;
+	
+	@Autowired
+	private ApplicationEventPublisher publisher;
+	
+	@PostMapping("/register")
+	public String registerUser(@RequestBody UserRegModel userRegModel,final HttpServletRequest request) {
 
-    @GetMapping("/register")
-    public String register(final Model model){
-        model.addAttribute("userData", new UserData());
-        return "account/register";
-    }
+		UserEntity userEntity=userEntityService.registerUser(userRegModel);
+		String applicationUrl;
+		publisher.publishEvent(new RegistrationCompleteEvent(userEntity,
+				applicationUrl(request) ));
+		return "Success";
+		
+	}
 
-    @PostMapping("/register")
-    public String userRegistration(final @Valid  UserData userData, final BindingResult bindingResult, final Model model){
-        if(bindingResult.hasErrors()){
-            model.addAttribute("registrationForm", userData);
-            return "account/register";
-        }
-        try {
-            userEntityService.register(userData);
-        }catch (UserAlreadyExistException e){
-            bindingResult.rejectValue("email", "userData.email","An account already exists for this email.");
-            model.addAttribute("registrationForm", userData);
-            return "account/register";
-        }
-      
-        return REDIRECT+"/starter";
-    }
+	private String applicationUrl(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return "http://"
+				+ request.getServerName()+
+				":" +
+				request.getServerPort()+
+				request.getContextPath();
+	}
 }
