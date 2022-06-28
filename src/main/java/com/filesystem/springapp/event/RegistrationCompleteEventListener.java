@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
+import org.springframework.stereotype.Component;
 
 import com.filesystem.springapp.entities.UserEntity;
 import com.filesystem.springapp.event.RegistrationCompleteEvent;
@@ -14,7 +15,7 @@ import com.filesystem.springapp.services.UserEntityService;
 
 import lombok.extern.slf4j.Slf4j;
 
-
+@Component
 @Slf4j
 public class RegistrationCompleteEventListener implements 
 	ApplicationListener<RegistrationCompleteEvent> {
