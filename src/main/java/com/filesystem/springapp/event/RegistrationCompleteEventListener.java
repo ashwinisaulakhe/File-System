@@ -18,9 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class RegistrationCompleteEventListener implements 
 	ApplicationListener<RegistrationCompleteEvent> {
-
-
-
 	
 	@Autowired
 	private UserEntityService userEntityService;
