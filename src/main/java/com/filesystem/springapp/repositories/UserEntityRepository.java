@@ -8,4 +8,7 @@ import com.filesystem.springapp.entities.UserEntity;
 @Repository
 public interface UserEntityRepository extends JpaRepository<UserEntity, Long>{
 
+
+	UserEntity findByEmail(String email);
+
 }

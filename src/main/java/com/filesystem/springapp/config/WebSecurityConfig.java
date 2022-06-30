@@ -16,7 +16,9 @@ public class WebSecurityConfig {
 	
 	private static final String[] WHITE_LIST_URLS = {
 			"/login",
-			"/register"
+			"/register",
+			"/verifyRegistration",
+			"/resendVerifyToken"
 			
 	};
 

@@ -13,7 +13,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="user")
+@Table(name="userRegister")
 public class UserEntity implements Serializable {
 
 	@Id

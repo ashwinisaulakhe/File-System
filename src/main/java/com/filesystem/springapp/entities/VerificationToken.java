@@ -61,6 +61,56 @@ public class VerificationToken {
 		calendar.add(Calendar.MINUTE, expirationTime);
 		return new Date(calendar.getTime().getTime());
 	}
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	public String getToken() {
+		return token;
+	}
+
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+
+	public UserEntity getUserEntity() {
+		return userEntity;
+	}
+
+
+	public void setUserEntity(UserEntity userEntity) {
+		this.userEntity = userEntity;
+	}
+
+
+	public Date getExpirationTime1() {
+		return expirationTime;
+	}
+
+
+	public void setExpirationTime(Date expirationTime) {
+		this.expirationTime = expirationTime;
+	}
+
+
+	public int getExpirationTime() {
+		return EXPIRATION_TIME;
+	}
+
+
+	
+
+	
 	
 	
 }

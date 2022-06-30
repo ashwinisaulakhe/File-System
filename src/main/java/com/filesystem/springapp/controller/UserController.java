@@ -20,7 +20,7 @@ import com.filesystem.springapp.repositories.UserRepository;
 
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping(path="/login")
 public class UserController {
 
 	private UserRepository loginRepository;

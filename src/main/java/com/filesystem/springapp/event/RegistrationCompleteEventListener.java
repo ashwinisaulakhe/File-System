@@ -9,7 +9,6 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import com.filesystem.springapp.entities.UserEntity;
-import com.filesystem.springapp.event.RegistrationCompleteEvent;
 import com.filesystem.springapp.services.UserEntityService;
 
 
@@ -33,7 +32,7 @@ public class RegistrationCompleteEventListener implements
 		userEntityService.saveVerificationTokenForUser(token,userEntity);
 		
 		//send mail to user
-		String url = event.getApplicationUrl() +"VerifyRegistration?token=" +token;
+		String url = event.getApplicationUrl() +"/VerifyRegistration?token=" +token;
 		
 
 		//send verificationEmail
