@@ -97,7 +97,20 @@ public class RegistrationController {
 	
 		
 	}
-
+	
+	@PostMapping("/changePassword")
+	public String changePassword(@RequestBody PasswordModel passwordModel)
+	{
+		UserEntity userEntity=userEntityService.findUserByEmail(passwordModel.getEmail());
+		if(!userEntityService.checkIfValidOldPassword(userEntity,passwordModel.getOldPassword())) {
+			return "invalid Old Password";
+		}
+		//save new password functionality
+		userEntityService.changePassword(userEntity, passwordModel.getNewPassword());
+		return "Password changed Successfully";
+		
+	}
+	
 	private String passwordResetTokenMail(UserEntity userEntity, String applicationUrl, String token) {
 		// TODO Auto-generated method stub
 		String url = applicationUrl +"/savePassword?token=" + token;

@@ -17,7 +17,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackages="com.filesystem.springapp.repositories.UserEntityRepository",entityManagerFactoryRef = "sessionFactory")
 @SpringBootApplication(scanBasePackages={ "com.filesystem.sprinapp" })
 public class SpringAppApplication {
-
+	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringAppApplication.class, args);
 	}

@@ -2,10 +2,11 @@ package com.filesystem.springapp.dao;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+import lombok.Data;
+@Data
 public class UserData implements Serializable {
 
 	@NotEmpty(message = "First name can not be empty")

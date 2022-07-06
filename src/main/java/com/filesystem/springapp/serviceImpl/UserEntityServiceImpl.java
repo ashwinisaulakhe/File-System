@@ -42,6 +42,7 @@ public class UserEntityServiceImpl implements UserEntityService {
 		userEntity.setEmail(userRegModel.getEmail());
 		userEntity.setFirstName(userRegModel.getFirstName());
 		userEntity.setLastName(userRegModel.getLastName());
+		userEntity.setPhoneNumber(userRegModel.getPhoneNumber());
 		userEntity.setRoles("USER ROLE");
 		userEntity.setPassword(passwordEncoder.encode(userRegModel.getPassword()));
 		
@@ -142,6 +143,12 @@ public class UserEntityServiceImpl implements UserEntityService {
 		userEntityRepository.save(userEntity);
 		
 		
+	}
+
+	@Override
+	public boolean checkIfValidOldPassword(UserEntity userEntity, String oldPassword) {
+		// TODO Auto-generated method stub
+		return passwordEncoder.matches(oldPassword, userEntity.getPassword());
 	}
 
 }

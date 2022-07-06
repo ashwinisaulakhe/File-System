@@ -13,6 +13,7 @@ public class UserRegModel {
 	private String firstName;
 	private String LastName;
 	private String email;
+	private String phoneNumber;
 	private String password;
 	private String confirmPassword;
 	
@@ -45,6 +46,12 @@ public class UserRegModel {
 	}
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
+	}
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 	
 }
