@@ -1,15 +1,10 @@
 package com.filesystem.springapp.config;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.hateoas.client.LinkDiscoverer;
-import org.springframework.hateoas.client.LinkDiscoverers;
-import org.springframework.hateoas.mediatype.collectionjson.CollectionJsonLinkDiscoverer;
-import org.springframework.plugin.core.SimplePluginRegistry;
 
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -24,27 +19,19 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfiguration {
 
     @Bean
-    public LinkDiscoverers discoverers() {
-        List<LinkDiscoverer> plugins = new ArrayList<>();
-        plugins.add(new CollectionJsonLinkDiscoverer());
-        return new LinkDiscoverers(SimplePluginRegistry.create(plugins));
-
-    }
-    @Bean
     public Docket postsApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("{}")
-                .apiInfo(buildApiInfo())
                 .select()
+                .paths(PathSelectors.any())
                 .apis(RequestHandlerSelectors.basePackage("com.filesystem.springapp"))
-                .paths(PathSelectors.regex("/.*"))
-                .build();
+                .build()
+        		.apiInfo(apiInfo());
     }
-	private ApiInfo buildApiInfo() {
+
+	private ApiInfo apiInfo() {
 		// TODO Auto-generated method stub
 		return null;
+				
 	}
 
-    
-	
 }

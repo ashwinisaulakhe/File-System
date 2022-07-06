@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.filesystem.springapp.entities.User;
 import com.filesystem.springapp.repositories.UserRepository;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 
 @Controller
 @RequestMapping(path="/login")
@@ -51,7 +54,8 @@ public class UserController {
     }
 	
 	  @GetMapping("/{id}")
-	    public User getUserLogin(@PathVariable Long id) {
+	 
+	    public User getUserLogin(@ApiParam(value="Id value for the login retrive",required =true)@PathVariable Long id) {
 	        return loginRepository.findById(id).orElseThrow(RuntimeException::new);
 	    }
 	  
