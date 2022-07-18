@@ -1,5 +1,8 @@
 package com.filesystem.springapp.entities;
 
+import javax.persistence.Entity;
+
+@Entity
 public class ResponseMessage {
 
 	private String message;

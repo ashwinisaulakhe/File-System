@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +22,8 @@ import com.filesystem.springapp.repositories.UserRepository;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
-
+@ApiOperation(value="/login", tags ="user Controller")
+@CrossOrigin(origins = "http://localhost:8080")
 @Controller
 @RequestMapping(path="/login")
 public class UserController {
@@ -40,30 +42,33 @@ public class UserController {
 	
 	@GetMapping("/login")
 	public String login() { 
-	return "/login";
+	return "Login Successful";
     }
 	
 	@GetMapping("/logout")
 	public String logout() { 
 	return "/logout";
     }
-	  
+	 
+	@ApiOperation(value="Fetch all users", response=Iterable.class)
 	@GetMapping
 	public List<User> getUserLogin() {
         return loginRepository.findAll();
     }
 	
 	  @GetMapping("/{id}")
-	 
-	    public User getUserLogin(@ApiParam(value="Id value for the login retrive",required =true)@PathVariable Long id) {
+	  public User getUserLogin(@ApiParam(value="Id value for the login retrive",required =true)@PathVariable Long id) {
 	        return loginRepository.findById(id).orElseThrow(RuntimeException::new);
 	    }
 	  
+	  @ApiOperation(value="create User Login", response=User.class)
 	  @PostMapping
 	    public ResponseEntity createUserLogin(@RequestBody User user) throws URISyntaxException {
 		  User savedUserLogin = loginRepository.save(user);
 	        return ResponseEntity.created(new URI("/login/" + savedUserLogin.getId())).body(savedUserLogin);
 	    }
+	  
+	  @ApiOperation(value="Update User Login", response=User.class)
 	  @PutMapping("/{id}")
 	    public ResponseEntity updateUserLogin(@PathVariable Long id, @RequestBody User userLogin) {
 	    	User currentUserLogin = loginRepository.findById(id).orElseThrow(RuntimeException::new);
@@ -72,6 +77,7 @@ public class UserController {
 	    	currentUserLogin.setPassword(currentUserLogin.getPassword());
 	    	return ResponseEntity.ok(currentUserLogin);
 	  }
+	  @ApiOperation(value="Delete User Login", response=User.class)
 	  @DeleteMapping("/{id}")
 	    public ResponseEntity deleteUserLogin(@PathVariable Long id) {
 		  loginRepository.deleteById(id);
