@@ -8,6 +8,7 @@ import java.util.function.Function;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -19,12 +20,11 @@ public class JWTUtil {
 	private String SECRET_KEY = "secretkey";
 	
 	public Object extractUsername(String token) {
-		return extractClaim(token, Claims.getSubject());
+		return extractClaim(token, Claims::getSubject);
 	}
 
-
 	public Object extractExpiration(String token) {
-		return extractClaim(token, Claims.getExpiration());
+		return extractClaim(token, Claims::getExpiration);
 	}
 	
 	public <T> T extractClaim(String token, Function<Claims, T>claimsResolver) {

@@ -22,7 +22,7 @@ import com.filesystem.springapp.util.JWTUtil;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-	@Autowired
+	@Autowired(required=true)
 	private MyUserDetailsService userDetailsService;
 	
 	@Autowired

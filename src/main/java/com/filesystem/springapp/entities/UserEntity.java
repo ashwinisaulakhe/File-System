@@ -32,10 +32,20 @@ public class UserEntity implements Serializable {
 	private boolean enabled = false; 
 	
 	public UserEntity() {
-		super();
+		
 	}
 
 	
+	public UserEntity(String firstName, String lastName, String email, String phoneNumber, String password) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.password = password;
+	}
+
+
 	public Long getId() {
 		return id;
 	}
